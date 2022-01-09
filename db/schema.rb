@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_08_161656) do
+ActiveRecord::Schema.define(version: 2022_01_09_152159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,17 @@ ActiveRecord::Schema.define(version: 2022_01_08_161656) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "contracts", force: :cascade do |t|
+    t.datetime "start_at", precision: 6
+    t.datetime "end_at", precision: 6
+    t.integer "slot_duration"
+    t.integer "contract_duration"
+    t.bigint "company_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_contracts_on_company_id"
+  end
+
   create_table "engineers", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -29,4 +40,5 @@ ActiveRecord::Schema.define(version: 2022_01_08_161656) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "contracts", "companies"
 end
