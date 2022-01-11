@@ -10,7 +10,7 @@ module Builders
 
       def build
         week = @from
-        while week <= @to
+        while week < @to
           build_contract_plan(contract: @contract, start_date: week.beginning_of_week, end_date: week.end_of_week)
 
           week += 1.week
