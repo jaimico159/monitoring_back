@@ -23,3 +23,38 @@ Engineer.create!([
                      display_name: 'Benjamin C.'
                    }
                  ])
+
+company = Company.create!({
+                            name: 'Recorrido'
+                          })
+
+contract = Contract.create!({
+                              start_at: Time.now.beginning_of_week,
+                              end_at: Time.now.end_of_year,
+                              slot_duration: 3600,
+                              company_id: company.id
+                            })
+
+builder = Builders::Contract::TimeSlotsBuilder.new(
+  contract: contract,
+  from: Date.today.beginning_of_week,
+  to: (Date.today.end_of_week + 5.weeks),
+  options: {
+    1 => { start_at: 19,
+           end_at: 24 },
+    2 => { start_at: 19,
+           end_at: 24 },
+    3 => { start_at: 19,
+           end_at: 24 },
+    4 => { start_at: 19,
+           end_at: 24 },
+    5 => { start_at: 19,
+           end_at: 24 },
+    6 => { start_at: 10,
+           end_at: 24 },
+    7 => { start_at: 10,
+           end_at: 24 }
+  }
+)
+
+builder.build
