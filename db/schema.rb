@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_09_153022) do
+ActiveRecord::Schema.define(version: 2022_01_11_125504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(version: 2022_01_09_153022) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["contract_id"], name: "index_contract_engineers_on_contract_id"
     t.index ["engineer_id"], name: "index_contract_engineers_on_engineer_id"
+  end
+
+  create_table "contract_plans", force: :cascade do |t|
+    t.bigint "contract_id", null: false
+    t.date "start_date"
+    t.date "end_date"
+    t.integer "slot_duration"
+    t.integer "time_slots_count"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["contract_id"], name: "index_contract_plans_on_contract_id"
   end
 
   create_table "contracts", force: :cascade do |t|
@@ -70,6 +81,7 @@ ActiveRecord::Schema.define(version: 2022_01_09_153022) do
 
   add_foreign_key "contract_engineers", "contracts"
   add_foreign_key "contract_engineers", "engineers"
+  add_foreign_key "contract_plans", "contracts"
   add_foreign_key "contracts", "companies"
   add_foreign_key "reservations", "engineers"
   add_foreign_key "reservations", "time_slots"
