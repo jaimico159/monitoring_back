@@ -77,10 +77,10 @@ ActiveRecord::Schema.define(version: 2022_01_11_125734) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "contract_plan_id"
-    t.integer "user_id"
+    t.integer "engineer_id"
     t.index ["contract_id"], name: "index_time_slots_on_contract_id"
     t.index ["contract_plan_id"], name: "index_time_slots_on_contract_plan_id"
-    t.index ["user_id"], name: "index_time_slots_on_user_id"
+    t.index ["engineer_id"], name: "index_time_slots_on_engineer_id"
   end
 
   add_foreign_key "contract_engineers", "contracts"
