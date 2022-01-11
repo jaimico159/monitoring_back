@@ -1,5 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Contract, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should have_many(:contract_plans) }
+  it { should belong_to(:company) }
 end
