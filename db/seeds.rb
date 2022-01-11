@@ -35,7 +35,7 @@ contract = Contract.create!({
                               company_id: company.id
                             })
 
-builder = Builders::Contract::TimeSlotsBuilder.new(
+builder = Builders::Contract::ContractPlanBuilder.new(
   contract: contract,
   from: Date.today.beginning_of_week,
   to: (Date.today.end_of_week + 5.weeks),
