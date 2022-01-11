@@ -52,7 +52,7 @@ builder = Builders::Contract::ContractPlanBuilder.new(
            end_at: 24 },
     6 => { start_at: 10,
            end_at: 24 },
-    7 => { start_at: 10,
+    0 => { start_at: 10,
            end_at: 24 }
   }
 )
