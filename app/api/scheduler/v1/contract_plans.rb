@@ -6,6 +6,12 @@ module Scheduler
       prefix :api
 
       resources :contract_plans do
+        desc 'Get time slots of contract plan separated by contract plan day'
+        get '/:id/time_slots' do
+          contract_plan = ContractPlan.includes(contract_plan_days: :time_slots).find(params[:id])
+          contract_plan.as_json(include: { contract_plan_days: { include: :time_slots } })
+        end
+
         desc 'Associate time slots to engineers for planning schedule'
         params do
           requires :availabilities, type: Array
