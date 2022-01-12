@@ -2,6 +2,7 @@ class ContractPlan < ApplicationRecord
   belongs_to :contract
   has_many :time_slots
   has_many :reservations, through: :time_slots
+  has_many :contract_plan_days
 
   validates_presence_of :start_date
   validates_presence_of :end_date

@@ -1,6 +1,7 @@
 class TimeSlot < ApplicationRecord
   belongs_to :contract
   belongs_to :contract_plan
+  belongs_to :contract_plan_day
   belongs_to :engineer, optional: true
   has_many :reservations
 
