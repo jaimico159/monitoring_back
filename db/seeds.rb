@@ -29,6 +29,7 @@ company = Company.create!({
                           })
 
 contract = Contract.create!({
+                              name: 'Contrato 2022 Recorrido.cl',
                               start_at: Time.now.beginning_of_week,
                               end_at: Time.now.end_of_year,
                               slot_duration: 3600,

@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 2022_01_12_160836) do
   end
 
   create_table "contracts", force: :cascade do |t|
+    t.string "name"
     t.datetime "start_at", precision: 6
     t.datetime "end_at", precision: 6
     t.integer "slot_duration"
