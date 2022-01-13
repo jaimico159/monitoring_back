@@ -42,9 +42,11 @@ RSpec.describe Builders::Contract::ContractPlanBuilder do
                        to: end_date, options: options)
 
         plans_count = ((end_date - start_date).to_i + 1) / 7
+        time_slots_count = options.map { |_k, v| v[:end_at] - v[:start_at] }.sum * plans_count
         builder.build
 
         expect(ContractPlan.count).to eql(plans_count)
+        expect(TimeSlot.count).to eql(time_slots_count)
       end
     end
   end
