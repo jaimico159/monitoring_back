@@ -1,7 +1,8 @@
 module Strategies
   module ContractPlan
-    class RandomAssignEngineers
+    class RandomAssignEngineers < BaseStrategy
       def initialize(contract_plan_id:)
+        super(contract_plan_id: contract_plan_id)
         @contract_plan = ::ContractPlan.includes(time_slots: :reservations).find contract_plan_id
         @time_slots = @contract_plan.time_slots
       end
