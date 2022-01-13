@@ -8,22 +8,25 @@ module Scheduler
       resources :contract_plans do
         desc 'Get time slots of contract plan separated by contract plan day'
         get '/:id/time_slots' do
-          contract_plan = ContractPlan.includes(contract_plan_days: :time_slots).find(params[:id])
-          contract_plan.as_json(include: { contract_plan_days: { include: :time_slots } })
+          contract_plan = ContractPlan.includes(contract_plan_days: { time_slots: %i[engineer
+                                                                                     reservations] }).find(params[:id])
+          contract_plan.as_json(include: { contract_plan_days: { include: { time_slots: { include: %i[engineer
+                                                                                                      reservations] } } } })
         end
 
         desc 'Associate time slots to engineers for planning schedule'
         params do
-          requires :availabilities, type: Array
+          requires :reservations, type: Array
         end
-        post '/:id/set_availabilities' do
+        post '/:id/set_reservations' do
+          puts params
           contract_plan = ContractPlan.includes(:time_slots, :reservations).find(params[:id])
-          contract_plan.reservations.destroy_all if contract_plan.reservations.positive?
+          contract_plan.reservations.each(&:destroy) if contract_plan.reservations.length.positive?
 
           availabilities = []
           time_slots_ids = contract_plan.time_slots.ids
-          params[:availabilities].reject! { |av| time_slots_ids.exclude?(av[:time_slot_id]) }
-          params[:availabilities].each do |av|
+          params[:reservations].reject! { |av| time_slots_ids.exclude?(av[:time_slot_id]) }
+          params[:reservations].each do |av|
             availabilities << Reservation.new(engineer_id: av[:engineer_id], time_slot_id: av[:time_slot_id])
           end
           Reservation.import! availabilities
