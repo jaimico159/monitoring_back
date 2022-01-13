@@ -10,17 +10,20 @@ Engineer.create!([
                    {
                      first_name: 'Barbara',
                      last_name: 'Aliaga',
-                     display_name: 'Barbara A.'
+                     display_name: 'Barbara A.',
+                     color: '#d2fcd6'
                    },
                    {
                      first_name: 'Lennart',
                      last_name: 'Sönke',
-                     display_name: 'Lennart S.'
+                     display_name: 'Lennart S.',
+                     color: '#d2dbfa'
                    },
                    {
                      first_name: 'Benjamin',
                      last_name: 'Cuadros',
-                     display_name: 'Benjamin C.'
+                     display_name: 'Benjamin C.',
+                     color: '#fad2ea'
                    }
                  ])
 
