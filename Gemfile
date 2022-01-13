@@ -55,6 +55,7 @@ end
 
 group :test do
   gem 'shoulda-matchers', '~> 5.0'
+  gem 'simplecov', require: false
   gem 'factory_bot_rails'
 end
 
