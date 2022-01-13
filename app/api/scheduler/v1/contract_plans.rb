@@ -8,8 +8,11 @@ module Scheduler
       resources :contract_plans do
         desc 'Get time slots of contract plan separated by contract plan day'
         get '/:id/time_slots' do
-          contract_plan = ContractPlan.includes(contract_plan_days: { time_slots: %i[engineer
-                                                                                     reservations] }).find(params[:id])
+          contract_plan = ContractPlan
+                          .includes(
+                            contract_plan_days: { time_slots: %i[engineer
+                                                                 reservations] }
+                          ).find(params[:id])
           contract_plan.as_json(include: { contract_plan_days: { include: { time_slots: { include: %i[engineer
                                                                                                       reservations] } } } })
         end
