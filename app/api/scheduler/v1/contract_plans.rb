@@ -24,7 +24,8 @@ module Scheduler
         post '/:id/set_reservations' do
           puts params
           contract_plan = ContractPlan.includes(:time_slots, :reservations).find(params[:id])
-          contract_plan.reservations.each(&:destroy) if contract_plan.reservations.length.positive?
+          reservations_ids = contract_plan.reservations.ids
+          Reservation.where(id: reservations_ids).delete_all if reservations_ids.length.positive?
 
           availabilities = []
           time_slots_ids = contract_plan.time_slots.ids
@@ -37,7 +38,11 @@ module Scheduler
           strategy = Strategies::ContractPlan::RandomAssignEngineers.new(contract_plan_id: contract_plan.id)
           strategy.run
 
-          contract_plan.reload
+          contract_plan = ContractPlan
+                          .includes(
+                            contract_plan_days: { time_slots: %i[engineer
+                                                                 reservations] }
+                          ).find(params[:id])
           contract_plan.as_json(include: { contract_plan_days: { include: { time_slots: { include: %i[engineer
                                                                                                       reservations] } } } })
         end
