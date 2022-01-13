@@ -9,4 +9,5 @@ class Contract < ApplicationRecord
   validates_presence_of :slot_duration
   validates_presence_of :start_at
   validates_presence_of :end_at
+  validates :end_at, comparison: { greater_than: :start_at }
 end
