@@ -36,6 +36,9 @@ contract = Contract.create!({
                               company_id: company.id
                             })
 
+contract.engineers = Engineer.all
+contract.save!
+
 builder = Builders::Contract::ContractPlanBuilder.new(
   contract: contract,
   from: Date.today.beginning_of_week,
@@ -59,3 +62,5 @@ builder = Builders::Contract::ContractPlanBuilder.new(
 )
 
 builder.build
+
+Reservation.create(engineer_id: Engineer.first, time_slot_id: TimeSlot.first)
