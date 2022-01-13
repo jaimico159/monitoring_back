@@ -31,6 +31,9 @@ module Scheduler
           end
           Reservation.import! availabilities
 
+          strategy = Strategies::ContractPlan::RandomAssignEngineers.new(contract_plan_id: contract_plan.id)
+          strategy.run
+
           contract_plan.reload
           contract_plan.as_json(include: { contract_plan_days: { include: { time_slots: { include: %i[engineer
                                                                                                       reservations] } } } })
