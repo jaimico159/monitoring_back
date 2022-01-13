@@ -30,10 +30,10 @@ module Scheduler
             availabilities << Reservation.new(engineer_id: av[:engineer_id], time_slot_id: av[:time_slot_id])
           end
           Reservation.import! availabilities
-          {
-            status: 200,
-            message: 'Success'
-          }
+
+          contract_plan.reload
+          contract_plan.as_json(include: { contract_plan_days: { include: { time_slots: { include: %i[engineer
+                                                                                                      reservations] } } } })
         end
       end
     end
