@@ -19,9 +19,8 @@ module Scheduler
 
         desc 'Return a contract engineers'
         get '/:id/contracts/:contract_id/engineers' do
-
           contract = Contract.includes(:engineers, :company).where(id: params[:contract_id],
-            company_id: params[:id]).first
+                                                                   company_id: params[:id]).first
 
           contract.as_json(include: :engineers)
         end
