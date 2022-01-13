@@ -7,4 +7,6 @@ class TimeSlot < ApplicationRecord
 
   validates_presence_of :duration
   validates_presence_of :start_at
+
+  default_scope -> { order('start_at asc') }
 end
