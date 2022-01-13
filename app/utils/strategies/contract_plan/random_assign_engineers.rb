@@ -7,12 +7,15 @@ module Strategies
       end
 
       def run
+        slots = []
         @time_slots.each do |time_slot|
           ids = time_slot.reservations.pluck(:engineer_id)
           next if ids.blank?
 
-          time_slot.update(engineer_id: ids.sample)
+          time_slot.engineer_id = ids.sample
+          slots << time_slot
         end
+        TimeSlot.import! slots, on_duplicate_key_update: [:engineer_id]
       end
     end
   end
