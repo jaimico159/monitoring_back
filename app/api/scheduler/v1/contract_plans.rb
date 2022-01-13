@@ -22,7 +22,6 @@ module Scheduler
           requires :reservations, type: Array
         end
         post '/:id/set_reservations' do
-          puts params
           contract_plan = ContractPlan.includes(:time_slots, :reservations).find(params[:id])
           reservations_ids = contract_plan.reservations.ids
           Reservation.where(id: reservations_ids).delete_all if reservations_ids.length.positive?
